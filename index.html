@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3D Avatar (Top Anchored)</title>
+    <title>Responsive 3D Avatar</title>
 
     <!-- Load model-viewer -->
     <script
@@ -17,19 +17,19 @@
         padding: 0;
         height: 100%;
         width: 100%;
-        background: transparent;
+        background-color: #000;
         overflow: hidden;
         display: flex;
-        justify-content: center; /* horizontally center */
-        align-items: flex-start; /* anchor to top */
+        align-items: center;
+        justify-content: center;
       }
 
       model-viewer {
-        width: max(100vw, 100vh);
-        height: max(100vw, 100vh);
+        /* Maintain a square shape that fits within viewport */
+        width: min(100vw, 100vh);
+        height: min(100vw, 100vh);
         display: block;
-        background: transparent;
-        object-position: top center; /* keep top in view */
+        background: #000;
       }
     </style>
   </head>
@@ -38,12 +38,11 @@
     <model-viewer
       src="https://models.readyplayer.me/6910ce6448062250a482a8e9.glb"
       shadow-intensity="1"
+      auto-rotate
+      rotation-per-second="20deg"
       camera-controls
       touch-action="pan-y"
-      interaction-prompt="none"
-      style="background-color: transparent;"
-      camera-orbit="0deg 100% 100%"
-      field-of-view="40deg">
+      interaction-prompt="none">
     </model-viewer>
   </body>
 </html>
