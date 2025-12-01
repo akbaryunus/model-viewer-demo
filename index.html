@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Coin – Adjustable Lights</title>
+    <title>Coin – Upward Light</title>
 
     <script
       type="module"
@@ -15,132 +15,41 @@
         margin: 0;
         padding: 0;
         height: 100%;
-        background-color: #f5f5f5;
+        background-color: #000; /* dark background for contrast */
         display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: center;
       }
+
       model-viewer {
-        height: 80vh;
-        width: 80vh;
-      }
-      .controls {
-        width: 80%;
-        background: #fff;
-        padding: 10px 20px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        border-radius: 10px;
-        font-family: sans-serif;
-        margin-top: 10px;
-      }
-      .group {
-        margin-bottom: 10px;
-      }
-      label {
-        font-size: 14px;
-        display: block;
-        margin-top: 6px;
-      }
-      input[type="range"] {
-        width: 100%;
+        height: 90vh;
+        width: 90vh;
       }
     </style>
   </head>
 
   <body>
     <model-viewer
-      id="viewer"
       src="https://cdn.tinyglb.com/models/dab7f03a81d040b5be002050b7ff1ce5.glb"
       camera-controls
       auto-rotate
-      rotation-per-second="20deg"
+      rotation-per-second="30deg"
       disable-zoom
       environment-image="neutral"
-      exposure="1.4"
+      exposure="1.1"
       shadow-intensity="1.2"
-      shadow-softness="0.5"
+      shadow-softness="0.7"
       interaction-prompt="none">
 
-      <!-- Key Light -->
-      <directional-light id="key" intensity="2.5" color="#ffffff" direction="0.5 1 1"></directional-light>
+      <!-- Upward floor light -->
+      <directional-light intensity="2.5" color="#fff8e1" direction="0 1 0"></directional-light>
 
-      <!-- Fill Light -->
-      <directional-light id="fill" intensity="1.0" color="#ffdca8" direction="-1 0.5 0.5"></directional-light>
+      <!-- Subtle blue rim light for edge definition -->
+      <directional-light intensity="1.2" color="#80caff" direction="0.5 0.5 -1"></directional-light>
+
+      <!-- Gentle overhead light for balance -->
+      <directional-light intensity="0.8" color="#ffe0b0" direction="0 -1 0"></directional-light>
+
     </model-viewer>
-
-    <div class="controls">
-      <div class="group">
-        <h3>Key Light</h3>
-        <label>Intensity: <span id="keyIntensityVal">2.5</span></label>
-        <input type="range" id="keyIntensity" min="0" max="5" step="0.1" value="2.5">
-        <label>Direction X: <span id="keyXVal">0.5</span></label>
-        <input type="range" id="keyX" min="-2" max="2" step="0.1" value="0.5">
-        <label>Direction Y: <span id="keyYVal">1</span></label>
-        <input type="range" id="keyY" min="-2" max="2" step="0.1" value="1">
-        <label>Direction Z: <span id="keyZVal">1</span></label>
-        <input type="range" id="keyZ" min="-2" max="2" step="0.1" value="1">
-      </div>
-
-      <div class="group">
-        <h3>Fill Light</h3>
-        <label>Intensity: <span id="fillIntensityVal">1.0</span></label>
-        <input type="range" id="fillIntensity" min="0" max="5" step="0.1" value="1.0">
-        <label>Direction X: <span id="fillXVal">-1</span></label>
-        <input type="range" id="fillX" min="-2" max="2" step="0.1" value="-1">
-        <label>Direction Y: <span id="fillYVal">0.5</span></label>
-        <input type="range" id="fillY" min="-2" max="2" step="0.1" value="0.5">
-        <label>Direction Z: <span id="fillZVal">0.5</span></label>
-        <input type="range" id="fillZ" min="-2" max="2" step="0.1" value="0.5">
-      </div>
-    </div>
-
-    <script>
-      const key = document.getElementById('key');
-      const fill = document.getElementById('fill');
-
-      // Utility to update light direction
-      function updateDirection(light, x, y, z) {
-        light.setAttribute('direction', `${x} ${y} ${z}`);
-      }
-
-      // Key light sliders
-      const keyIntensity = document.getElementById('keyIntensity');
-      const keyX = document.getElementById('keyX');
-      const keyY = document.getElementById('keyY');
-      const keyZ = document.getElementById('keyZ');
-
-      keyIntensity.addEventListener('input', () => {
-        key.setAttribute('intensity', keyIntensity.value);
-        document.getElementById('keyIntensityVal').textContent = keyIntensity.value;
-      });
-      [keyX, keyY, keyZ].forEach(slider => {
-        slider.addEventListener('input', () => {
-          updateDirection(key, keyX.value, keyY.value, keyZ.value);
-          document.getElementById('keyXVal').textContent = keyX.value;
-          document.getElementById('keyYVal').textContent = keyY.value;
-          document.getElementById('keyZVal').textContent = keyZ.value;
-        });
-      });
-
-      // Fill light sliders
-      const fillIntensity = document.getElementById('fillIntensity');
-      const fillX = document.getElementById('fillX');
-      const fillY = document.getElementById('fillY');
-      const fillZ = document.getElementById('fillZ');
-
-      fillIntensity.addEventListener('input', () => {
-        fill.setAttribute('intensity', fillIntensity.value);
-        document.getElementById('fillIntensityVal').textContent = fillIntensity.value;
-      });
-      [fillX, fillY, fillZ].forEach(slider => {
-        slider.addEventListener('input', () => {
-          updateDirection(fill, fillX.value, fillY.value, fillZ.value);
-          document.getElementById('fillXVal').textContent = fillX.value;
-          document.getElementById('fillYVal').textContent = fillY.value;
-          document.getElementById('fillZVal').textContent = fillZ.value;
-        });
-      });
-    </script>
   </body>
 </html>
